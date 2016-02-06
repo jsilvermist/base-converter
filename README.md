@@ -5,6 +5,12 @@ An element to use with data binding for converting or checking the base of a num
 Convert any number up to 2^53 (9,007,199,254,740,991),
 to or from any base from base 2 to base 36.
 
+### Demo
+
+For demos and documentation visit the [base-converter GitHub.io Page](http://jsilvermist.github.io/base-converter/components/base-converter/).
+
+### Examples
+
 Conversion Example:
 
 ```html
@@ -45,19 +51,25 @@ add an ID to your template and select it, then access the data-bindings.
 ```
 
 
-## Dependencies
+## Installation
 
-Element dependencies are managed via [Bower](http://bower.io/). You can
-install that via:
+The best way to install this element is through [Bower](http://bower.io/).
+
+If you don't already have bower installed, install [Node.js](nodejs.org),
+open a terminal window and type:
 
 ```sh
 npm install -g bower
 ```
 
-Then, go ahead and download the element's dependencies:
+Once you have bower installed, you may want to use `bower init` to initialize your project.
+This will enable you to save packages you install to make it easier to update,
+and install all dependencies again later.
+
+To install this element, type:
 
 ```sh
-bower install
+bower install --save base-converter
 ```
 
 
@@ -79,3 +91,12 @@ polyserve
 
 Once running, you can preview the element at
 `http://localhost:8080/components/base-converter/`, where `base-converter` is the name of the directory containing it.
+
+### Dependencies
+
+Element dependencies are managed via [Bower](http://bower.io/). You can
+install all of the element's dependencies via:
+
+```sh
+bower install
+```
