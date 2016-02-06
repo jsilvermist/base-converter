@@ -1,0 +1,105 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!--
+@license
+Copyright (c) 2016 Jsilvermist @ Silverlinkz. All rights reserved.
+For more information, please visit http://silverlinkz.net
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>base-converter Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="../../paper-card/paper-card.html">
+    <link rel="import" href="../base-converter.html">
+    <style is="custom-style">
+      body {
+        font-family: 'Roboto', 'Noto', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+      }
+
+      #cards {
+        @apply(--layout-vertical);
+        @apply(--center-justified);
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      paper-card {
+        width: 100%;
+        margin-bottom: 16px;
+      }
+
+      paper-card p {
+        margin-top: 0;
+      }
+    </style>
+  </head>
+  <body unresolved>
+
+    <div id="cards">
+
+      <paper-card heading="An Example of &lt;base-converter&gt;" elevation="1">
+        <div class="card-content">
+          <p>An element to use with data binding for converting or checking the base of a number.</p>
+          <p>Convert any number up to 2^53 (9,007,199,254,740,991),
+            to or from any base from base 2 to base 36.</p>
+        </div>
+      </paper-card>
+
+      <paper-card heading="Conversion Example" elevation="1">
+        <div class="card-content">
+          <template is="dom-bind">
+            <base-converter number="ff" from="16" to="10" result="{{result}}"></base-converter>
+            <p>Number: ff; From: 16; To: 10</p>
+            <p>The result is: {{result}}</p>
+          </template>
+        </div>
+      </paper-card>
+
+      <paper-card heading="Checking Example" elevation="1">
+        <div class="card-content">
+          <template is="dom-bind">
+            <base-converter number="92" from="8" valid="{{isValid}}"></base-converter>
+            <p>Number: 92; Base: 8</p>
+            <p>The number is a valid base 8 number: {{isValid}}</p>
+          </template>
+        </div>
+      </paper-card>
+
+      <paper-card elevation="1">
+        <div class="card-content">Note: Conversion and checking can be used both together or separetely.</div>
+      </paper-card>
+
+      <!--
+      To use the values inside of JavaScript but outside of a Polymer element,
+      add an ID to your template and select it, then access the data-bindings.
+      -->
+      <template is="dom-bind" id="app">
+        <base-converter number="255" from="10" to="16" result="{{converted}}"></base-converter>
+      </template>
+
+      <script>
+        document.addEventListener('WebComponentsReady', function(e) {
+          var app = document.querySelector('#app');
+          console.log('JavaScript: The result is ' + app.converted);
+        });
+      </script>
+
+    </div>
+
+  </body>
+</html>
