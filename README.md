@@ -51,7 +51,9 @@ add an ID to your template and select it, then access the data-bindings.
 ```
 
 
-## Installation
+## How To Use
+
+### Installation
 
 The best way to install this element is through [Bower](http://bower.io/).
 
@@ -71,6 +73,23 @@ To install this element, type:
 ```sh
 bower install --save base-converter
 ```
+
+### Using
+
+To use the element after installing it, first load webcomponents polyfill in the head of your page
+(Recommended to be loaded at the top before any other scripts):
+
+```html
+<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+```
+
+Second, import the element before using it (this can be in the head or wherever you wish):
+
+```html
+<link rel="import" href="bower_components/base-converter/base-converter.html">
+```
+
+Ensure that the path to bower_components is correct if it's not in the same directory.
 
 
 ## Playing With The Element
