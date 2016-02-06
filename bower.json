@@ -6,6 +6,13 @@
   ],
   "description": "An element to use with data binding for converting or checking the base of a number.",
   "keywords": [
+    "base converter",
+    "base conversion",
+    "number converter",
+    "number conversion",
+    "number base converter",
+    "number base conversion",
+    "web-components",
     "web-component",
     "polymer",
     "seed"
