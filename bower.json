@@ -1,0 +1,34 @@
+{
+  "name": "base-converter",
+  "version": "1.0.0",
+  "authors": [
+    "Jsilvermist <jsilvermist@silverlinkz.net>"
+  ],
+  "description": "An element to use with data binding for converting or checking the base of a number.",
+  "keywords": [
+    "base converter",
+    "base conversion",
+    "number converter",
+    "number conversion",
+    "number base converter",
+    "number base conversion",
+    "web-components",
+    "web-component",
+    "polymer",
+    "seed"
+  ],
+  "main": "base-converter.html",
+  "license": "MIT",
+  "homepage": "https://github.com/jsilvermist/base-converter/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.2.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "paper-card": "PolymerElements/paper-card#~1.0.9"
+  }
+}

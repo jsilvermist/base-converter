@@ -1,0 +1,174 @@
+<!--
+@license
+Copyright (c) 2016 Jsilvermist @ Silverlinkz. All rights reserved.
+For more information, please visit http://silverlinkz.net
+-->
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+An element to use with data binding for converting or checking the base of a number.
+
+Convert any number up to 2^53 (9,007,199,254,740,991),
+to or from any base from base 2 to base 36.
+
+Conversion Example:
+
+    <template is="dom-bind">
+      <base-converter number="ff" from="16" to="10" result="{{result}}"></base-converter>
+      <p>Number: ff; From: 16; To: 10</p>
+      <p>The result is: {{result}}</p>
+    </template>
+
+Checking Example:
+
+    <template is="dom-bind">
+      <base-converter number="92" from="8" valid="{{isValid}}"></base-converter>
+      <p>Number: 92; Base: 8</p>
+      <p>The number is a valid base 8 number: {{isValid}}</p>
+    </template>
+
+Note: Conversion and checking can be used both together or separetely.
+
+To use the values inside of JavaScript but outside of a Polymer element,
+add an ID to your template and select it, then access the data-bindings.
+
+    <template is="dom-bind" id="app">
+      <base-converter number="255" from="10" to="16" result="{{converted}}">
+      </base-converter>
+    </template>
+
+    <script>
+      document.addEventListener('WebComponentsReady', function() {
+        var app = document.querySelector('#app');
+        console.log('JavaScript: The result is ' + app.converted);
+      });
+    </script>
+
+@demo demo/index.html
+-->
+
+<dom-module id="base-converter">
+  <template>
+    <style>
+      :host {
+        display: none;
+      }
+    </style>
+  </template>
+  <script>
+  (function() {
+    'use strict';
+
+    Polymer({
+      is: 'base-converter',
+
+      properties: {
+        /**
+         * `number` indicates the number which you are converting,
+         * or which you want to check is a valid number of a certain base.
+         */
+        number: {
+          type: String
+        },
+
+        /**
+         * `from` indicates the base which you are converting from,
+         * or the base you want to check the number against.
+         * 
+         * (Supports any base from 2-36)
+         */
+        from: {
+          type: Number
+        },
+
+        /**
+         * `to` indicates the base which you are converting to.
+         * 
+         * (Supports any base from 2-36)
+         */
+        to: {
+          type: Number
+        },
+
+        /**
+         * `result` is the final result when converting your number.
+         */
+        result: {
+          type: String,
+          computed: '_convert(number, from, to)',
+          notify: true,
+          readOnly: true,
+          reflectToAttribute: true
+        },
+
+        /**
+         * `valid` reflects a boolean to indicate if the number is
+         * valid for the specified base.
+         */
+        valid: {
+          type: Boolean,
+          computed: '_check(number, from)',
+          notify: true,
+          readOnly: true,
+          reflectToAttribute: true
+        }
+      },
+
+      /**
+       * Converts a number from one base to another.
+       *
+       * @param {(string|number)} number The number to be converted.
+       * @param {number} fromBase The base of the original number.
+       * @param {number} toBase The base to convert to.
+       * @return {string|null} The converted number, or null on error.
+       */
+      _convert(number, fromBase, toBase) {
+        if (toBase < 2 || toBase > 36) {
+          console.log("New base is invalid.");
+          return null;
+        }
+
+        if (this._check(number, fromBase)) {
+          return parseInt(number, fromBase).toString(toBase);
+        } else {
+          return null;
+        }
+      },
+
+      /**
+       * Checks if a number is valid for the specified base.
+       *
+       * @param {(string|number)} number The number to be checked.
+       * @param {number} base greeting A positive greeting.
+       * @return {boolean} True on valid number/base pair,
+       * false on invalid base or number.
+       */
+      _check(number, base) {
+        var range, regex;
+        var charArr = [null,0,1,2,3,4,5,6,7,8,9,"a","b","c","d","e","f","g","h",
+        "i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+
+        if (base >= 2 && base <= 10) {
+          range = "0-" + charArr[base];
+        } else if (base == 11) {
+          range = "0-9aA";
+        } else if (base >= 12 && base <= 36) {
+          range = "0-9a-" + charArr[base] + "A-" + charArr[base].toUpperCase();
+        } else {
+          console.log("Original base is invalid.");
+          return false;
+        }
+
+        regex = new RegExp("^-?["+range+"]+(\\.["+range+"]+)?$");
+
+        if (regex.test(number)) {
+          return true;
+        } else {
+          console.log("Number is not a valid base " + base + " number.");
+          return false;
+        }
+      }
+    });
+  })();
+  </script>
+</dom-module>
