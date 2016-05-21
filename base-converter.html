@@ -111,6 +111,14 @@ add an ID to your template and select it, then access the data-bindings.
           notify: true,
           readOnly: true,
           reflectToAttribute: true
+        },
+
+        /**
+         * `error` will populate `result` if either the number or base is incorrect.
+         */
+        error: {
+          type: String,
+          value: ''
         }
       },
 
@@ -123,15 +131,19 @@ add an ID to your template and select it, then access the data-bindings.
        * @return {string|null} The converted number, or null on error.
        */
       _convert(number, fromBase, toBase) {
-        if (toBase < 2 || toBase > 36) {
-          console.log("New base is invalid.");
+        if (number === '') {
           return null;
+        }
+
+        if (toBase < 2 || toBase > 36) {
+          // New base is invalid.
+          return this.error;
         }
 
         if (this._check(number, fromBase)) {
           return parseInt(number, fromBase).toString(toBase);
         } else {
-          return null;
+          return this.error;
         }
       },
 
@@ -148,6 +160,10 @@ add an ID to your template and select it, then access the data-bindings.
         var charArr = [null,0,1,2,3,4,5,6,7,8,9,"a","b","c","d","e","f","g","h",
         "i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 
+        if (number === '') {
+          return false;
+        }
+
         if (base >= 2 && base <= 10) {
           range = "0-" + charArr[base];
         } else if (base == 11) {
@@ -155,7 +171,7 @@ add an ID to your template and select it, then access the data-bindings.
         } else if (base >= 12 && base <= 36) {
           range = "0-9a-" + charArr[base] + "A-" + charArr[base].toUpperCase();
         } else {
-          console.log("Original base is invalid.");
+          // Original base is invalid.
           return false;
         }
 
@@ -164,7 +180,7 @@ add an ID to your template and select it, then access the data-bindings.
         if (regex.test(number)) {
           return true;
         } else {
-          console.log("Number is not a valid base " + base + " number.");
+          // Number is not a valid current base number.
           return false;
         }
       }
